@@ -2,7 +2,6 @@ const express = require('express')
 const path = require('path')
 const http = require('http')
 const socketio = require('socket.io')
-//const Filter = require('bad-words')
 const { generateMessage, generateLocationMessage } = require('../src/utiles/messages')
 const { addUser , removeUser , getUser , getUsersInRoom } = require('../src/utiles/users')
 
@@ -17,12 +16,6 @@ app.use(express.static(staticPath))
 
 io.on('connection' , (socket) => {
     console.log('new connection')
-    // socket.emit('updateCount' , count)
-
-    // socket.on('add', () => {
-    //     count ++ 
-    //     io.emit('updateCount', count)
-    // })
 
     socket.on('join', (options, callback) => {
 
@@ -34,7 +27,7 @@ io.on('connection' , (socket) => {
 
         socket.join(user.room)
 
-        socket.emit('message' , generateMessage('Admin', 'welcome'))
+        socket.emit('message' , generateMessage('Admin', 'Welcome'))
         socket.broadcast.to(user.room).emit('message', generateMessage('Admin' , `${user.username} has Joinded`))
         io.to(user.room).emit('roomData' , {
             room: user.room , 
