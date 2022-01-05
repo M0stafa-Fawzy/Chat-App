@@ -17,12 +17,6 @@ app.use(express.static(staticPath))
 
 io.on('connection' , (socket) => {
     console.log('new connection')
-    // socket.emit('updateCount' , count)
-
-    // socket.on('add', () => {
-    //     count ++ 
-    //     io.emit('updateCount', count)
-    // })
 
     socket.on('join', (options, callback) => {
 
